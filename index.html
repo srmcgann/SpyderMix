@@ -1,6 +1,5 @@
-<!DOCTYPE html>
-<html>
-  <head>
+<html><head>
+  <title>SpyderMix</title>
     <style>
       body,html{
         background:#000;
@@ -20,7 +19,7 @@
     </style>
   </head>
   <body>
-    <canvas class="pointCanvas" id="pointAnimation"></canvas>
+    <canvas class="pointCanvas" id="pointAnimation" style="height: 100vh;" width="1920" height="341"></canvas>
     <script>
       function init(){
         
@@ -37,10 +36,14 @@
         var vx,vy;
         v[0].f=v[0].t=0;
         v[0].p=[];
-        for(var i=0;i<160;++i){
-          vx=-.9+rand(i+1e3)*1.8;
-          vy=-.9+rand(i+2e3)*1.8;
-          v[0].p.push({x:-80+(cx*2+160)*rand(i),y:-80+(cy*2+160)*rand(i+3e3),vx,vy})
+        for(var i=0;i<110;++i){
+          vx=0;//-.9+rand(i+1e3)*1.8;
+          vy=0;//-.9+rand(i+2e3)*1.8;
+          var p=Math.PI*2/24*(Math.random()*24|0)
+          var d=Math.random()*cx*.75
+          var X=cx+Math.sin(p)*d
+          var Y=cy+Math.cos(p)*d
+          v[0].p.push({x:X,y:Y,vx,vy})
         }
 
         v.push({});
@@ -56,23 +59,22 @@
         
         var c=v[0].c;
         var x=v[0].x;
+        x.globalAlpha=.5+Math.sin(frame/30)/3;
         x.fillStyle="#000";
         x.fillRect(0,0,c.width,c.height);
+        x.globalAlpha=1;
 
         var cx=c.width/2, cy=c.height/2;
         var X1,Y1,X2,Y2;
         v[0].f+=.7;
-        x.globalAlpha=.75
-        x.drawImage(web,cx-web.width/2.5,cy-web.height/2.5,web.width/1.25,web.height/1.25)
-        x.globalAlpha=1
 
         var d;
         for(var i=0;i<v[0].p.length;++i){
           var p=Math.atan2(cx-v[0].p[i].x,cy-v[0].p[i].y);
-          v[0].p[i].x-=Math.sin(p);
-          v[0].p[i].y-=Math.cos(p);
+          v[0].p[i].x-=Math.sin(p)*4;
+          v[0].p[i].y-=Math.cos(p)*4;
           if(v[0].p[i].x<-100 || v[0].p[i].x > cx*2+100 || v[0].p[i].y<-100 || v[0].p[i].y>cy*2+100){
-            p=Math.random()*Math.PI*2;
+            var p=Math.PI*2/24*(Math.random()*24|0)
             v[0].p[i].x=cx+Math.sin(p)
             v[0].p[i].y=cy+Math.cos(p)
           }
@@ -85,12 +87,12 @@
               x2=v[0].p[j].x;
               y2=v[0].p[j].y;
               d=Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
-              if(d<150){
+              if(d<260){
                 x.beginPath();
                 x.moveTo(x1,y1);
                 x.lineTo(x2,y2);
                 x.lineWidth=1+10/(1+d/10);
-                var alpha=(1 - Math.pow(d / 150, .85))/(1/Math.hypot(cx-v[0].p[i].x,cy-v[0].p[i].y)*400)
+                var alpha=(1 - Math.pow(d / 260, .85))/(1/Math.hypot(cx-v[0].p[i].x,cy-v[0].p[i].y)*500)
                 x.strokeStyle=`hsla(177,100%,60%,${alpha})`;
                 x.stroke();
               }
@@ -103,7 +105,7 @@
         for(var i=0;i<v[0].p.length;++i){
           x.beginPath();
           x.arc(v[0].p[i].x,v[0].p[i].y,6,0,Math.PI*2);
-          alpha=1/(1/Math.hypot(cx-v[0].p[i].x,cy-v[0].p[i].y)*400)
+          alpha=1/(1/Math.hypot(cx-v[0].p[i].x,cy-v[0].p[i].y)*500)
           x.fillStyle=`hsla(177,100%,60%,${alpha})`;
           x.fill();
           x.beginPath();
@@ -117,20 +119,18 @@
           v[0].f=0;
           v[0].t++;
         }
-        
+        frame++;
         v[0].raf=requestAnimationFrame(()=>{drawPointAnimation(v)});
       }
 
       function rand(s){
         return parseFloat('0.'+Math.sin(s+3e4).toString().substr(6));
       }
-
-      web=new Image();
-      web.src="web.png";
-      web.addEventListener("load", function(){
+      frame=0;
+      window.onload=function(){
         init();
         drawPointAnimation();
-      });
+      };
     </script>
-  </body>
-</html>
+  
+</body></html>
