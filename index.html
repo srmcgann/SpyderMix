@@ -91,7 +91,7 @@
     <canvas class="pointCanvas" id="pointAnimation" style="height: 100vh;" width="1920" height="341"></canvas>
     <script>
       function init(){
-        
+        threshold=200;
         v=[];
         v.push({});
         v[0].c = document.querySelector("#pointAnimation");
@@ -105,7 +105,7 @@
         var vx,vy;
         v[0].f=v[0].t=0;
         v[0].p=[];
-        for(var i=0;i<110;++i){
+        for(var i=0;i<55;++i){
           vx=0;//-.9+rand(i+1e3)*1.8;
           vy=0;//-.9+rand(i+2e3)*1.8;
           var p=Math.PI*2/24*(Math.random()*24|0)
@@ -114,7 +114,6 @@
           var Y=cy+Math.cos(p)*d
           v[0].p.push({x:X,y:Y,vx,vy})
         }
-
         v.push({});
         window.addEventListener("resize", function resize(){
           init();
@@ -132,11 +131,9 @@
         x.fillStyle="#000";
         x.fillRect(0,0,c.width,c.height);
         x.globalAlpha=1;
-
         var cx=c.width/2, cy=c.height/2;
         var X1,Y1,X2,Y2;
         v[0].f+=.7;
-
         var d;
         for(var i=0;i<v[0].p.length;++i){
           var p=Math.atan2(cx-v[0].p[i].x,cy-v[0].p[i].y);
@@ -156,12 +153,12 @@
               x2=v[0].p[j].x;
               y2=v[0].p[j].y;
               d=Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
-              if(d<260){
+              if(d<threshold){
                 x.beginPath();
                 x.moveTo(x1,y1);
                 x.lineTo(x2,y2);
                 x.lineWidth=1+10/(1+d/10);
-                var alpha=(1 - Math.pow(d / 260, .85))/(1/Math.hypot(cx-v[0].p[i].x,cy-v[0].p[i].y)*500)
+                var alpha=(1 - Math.pow(d / threshold, .85))/(1/Math.hypot(cx-v[0].p[i].x,cy-v[0].p[i].y)*500)
                 x.strokeStyle=`hsla(177,100%,60%,${alpha})`;
                 x.stroke();
               }
@@ -191,7 +188,6 @@
         frame++;
         v[0].raf=requestAnimationFrame(()=>{drawPointAnimation(v)});
       }
-
       function rand(s){
         return parseFloat('0.'+Math.sin(s+3e4).toString().substr(6));
       }
