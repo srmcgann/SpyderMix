@@ -10,19 +10,18 @@
         font-family: 'Orbitron', sans-serif;
         text-align: center;
       }
-        #pointAnimationDiv{
-          width:100%;
-        }
-        .pointCanvas{
-          width:100%;
-          height:100vh;
-        }
-        canvas{
-          display:block;
-        }
-        
-        #hero {
-          
+      #pointAnimationDiv{
+        width:100%;
+      }
+      .pointCanvas{
+        width:100%;
+        height:100vh;
+      }
+      canvas{
+        display:block;
+      }
+      
+      #hero {
         color: white;
         position: absolute;
         width: 100%;
@@ -34,7 +33,6 @@
         -moz-background-size: cover;
         -o-background-size: cover;
         background-size: cover;
-        
       }
       #logo {
         font-size: 90px;
@@ -63,10 +61,119 @@
       #mc_embed_signup p {
         text-shadow: 1px 1px #000;
       }
+      .wrapper {
+        height: 100vh;
+        overflow-x: hidden;
+        overflow-y: auto;
+        perspective: 2px;
+      }
+
+      .section {
+        position: relative;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-shadow: 0 0 5px #000;
+      }
+
+      .parallax::after {
+        content: " ";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        transform: translateZ(-2px) scale(2);
+        background-size:cover;
+        background-position:50% 50%;
+        z-index: -1;
+      }
+
+      .parallax_end::after {
+        content: " ";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-size:cover;
+        background-position:50% 50%;
+        z-index: -1;
+      }
+
+      .static {
+        background: #6ef3ed;
+        color:#000;
+      }
+
+      .bg2::after {
+        background-image: url('http://bilder.4ever.eu/data/download/natur/schneeflocke-187812.jpg');
+      }
+      .bg3::after {
+        background-image: url('https://i.pinimg.com/originals/ce/44/e1/ce44e1e613fc9aecda0d716255674e3b.jpg');
+      }
+      .bg4::after {
+        background-image: url('https://c1.staticflickr.com/9/8580/15545043363_0cd5cc56c7_b.jpg');
+      }
+      .bg5::after {
+        background-image: url('https://d1w9csuen3k837.cloudfront.net/Pictures/2000x2000fit/7/5/4/130754_shutterstock_225171904-crop.jpg');
+      }
     </style>
   </head>
   <body>
-    <canvas class="pointCanvas" id="pointAnimation"></canvas>
+    <main class="wrapper">
+      <section class="section parallax bg1">
+        <canvas class="pointCanvas" id="pointAnimation"></canvas>
+        <div id="hero">
+          <div id="logo">
+            <img src="spydermix_glitch_cyan_alt.png" alt="SpyderMix Logo" style="height:275px;"><br>
+            SPYDER<span style="color:#6ef3ed">MIX</span>
+          </div>
+          <div id="tagline">Weaving a private web</div>
+
+          <!--
+          <div id="mc_embed_signup">
+            <form action="https://spydermix.us17.list-manage.com/subscribe/post?u=2b0810b96d2a123b6b0e0ec67&amp;id=034f47278b" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+              <p>Interested?</p>
+              <div id="mc_embed_signup_scroll">
+                <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" style="font-family:'Orbitron';"required>  <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_2b0810b96d2a123b6b0e0ec67_034f47278b" tabindex="-1" value=""></div><input type="submit" style="font-family:'Orbitron';" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
+             </div>
+            </form>
+          </div>
+
+          <div id="joinus"><a href="/engineer.txt">Join us!</a></div>
+          -->
+
+        </div>
+      </section>
+      <section class="section static">
+        <h1>"Content goes here" </h1>
+      </section>
+      <section class="section parallax bg2">
+        <h1>SO FWUFFY AWWW</h1>
+      </section>
+      <section class="section static">
+        <h1>"Content goes here" </h1>
+      </section>
+      <section class="section parallax bg3">
+        <h1>SO FWUFFY AWWW</h1>
+      </section>
+      <section class="section static">
+        <h1>"Content goes here" </h1>
+      </section>
+      <section class="section parallax bg4">
+        <h1>SO FWUFFY AWWW</h1>
+      </section>
+      <section class="section static">
+        <h1>"Content goes here" </h1>
+      </section>
+      <section class="section parallax_end bg5">
+        <h1>SO FWUFFY AWWW</h1>
+      </section>
+    </main>
+
     <script>
       function mobile () {
         var check = false;
@@ -184,32 +291,9 @@
       }
       frame=0;
       window.onload=function(){
-        init();
-        if(!mobile())drawPointAnimation();
       };
+      init();
+      if(!mobile())drawPointAnimation();
     </script>
-  
-  <div id="hero">
-    <div id="logo">
-      <img src="spydermix_glitch_cyan_alt.png" alt="SpyderMix Logo" style="height:275px;"><br>
-      SPYDER<span style="color:#6ef3ed">MIX</span>
-    </div>
-    <div id="tagline">Weaving a private web</div>
-
-    <!--
-	<div id="mc_embed_signup">
-      <form action="https://spydermix.us17.list-manage.com/subscribe/post?u=2b0810b96d2a123b6b0e0ec67&amp;id=034f47278b" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-        <p>Interested?</p>
-        <div id="mc_embed_signup_scroll">
-          <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" style="font-family:'Orbitron';"required>  <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_2b0810b96d2a123b6b0e0ec67_034f47278b" tabindex="-1" value=""></div><input type="submit" style="font-family:'Orbitron';" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
-       </div>
-      </form>
-    </div>
-
-    <div id="joinus"><a href="/engineer.txt">Join us!</a></div>
-	-->
-
-  </div>
-
-
-</body></html>
+  </body>
+</html>
